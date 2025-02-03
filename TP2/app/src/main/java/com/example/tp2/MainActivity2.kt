@@ -15,7 +15,9 @@ class MainActivity2 : AppCompatActivity() {
         val displayText = findViewById<TextView>(R.id.displayText)
 
         val name = intent.getStringExtra("USER_NAME")
+        val year = intent.getIntExtra("USER_YEAR",-1)
 
-        displayText.text = "Hello: $name!"
+        val age = AgeCalculator.calculateAge(year)
+        displayText.text = "Hello $name, vous êtes né en $year. Vous avez $age ans."
     }
 }

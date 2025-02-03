@@ -45,14 +45,28 @@
         app:layout_constraintTop_toBottomOf="@+id/titreBienvenue"
         app:layout_constraintWidth_percent="0.7"/>
 
+    <EditText
+        android:id="@+id/inputAnnee"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:hint="Saisir votre année de naissance"
+        android:background="@color/editTextBackground"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/btnValider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputName"
+        app:layout_constraintWidth_percent="0.7"/>
+
     <Button
         android:id="@+id/btnValider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Valider"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputName"/>
+        app:layout_constraintTop_toBottomOf="@+id/inputAnnee"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
