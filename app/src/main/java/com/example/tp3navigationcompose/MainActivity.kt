@@ -61,27 +61,34 @@ fun AppNavigation(){
             FormScreen(navController = navController)
         }
         composable(
-            route="display/{name}",
-            arguments = listOf(navArgument("name") {defaultValue =""})
+            route="display/{name}/{age}",
+            arguments = listOf(navArgument("name") {defaultValue =""} ,
+                navArgument("age") { defaultValue = "" })
         ){  backStackEntry ->
             val name= backStackEntry.arguments?.getString("name") ?:""
-            DisplayScreen(navController = navController,name)
+            val age = backStackEntry.arguments?.getString("age") ?: ""
+            DisplayScreen(navController = navController,name,age)
         }
     }
 }
 
 @Composable
-fun DisplayScreen(navController: NavController,name: String) {
+fun DisplayScreen(navController: NavController,name: String,age: String) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Text(text = "Affichage du formulaire",
+        Text(text = "Bienvenue",
             style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = name,
+            style = MaterialTheme.typography.titleMedium)
+
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = "Vous avez $age ans",
             style = MaterialTheme.typography.titleMedium)
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -110,6 +117,8 @@ fun HomeScreen(navController: NavController) {
 @Composable
 fun FormScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
+    var age by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Center,
@@ -123,8 +132,16 @@ fun FormScreen(navController: NavController) {
             label = { Text("Entrez votre nom") },
             modifier = Modifier.fillMaxWidth().padding(16.dp)
         )
+
+        TextField(
+            value = age,
+            onValueChange = { newText -> if (newText.all { it.isDigit() }) age = newText },
+            label = { Text("Entrez votre âge") },
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
+
         Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = { navController.navigate("display/$name") }){
+        Button(onClick = { navController.navigate("display/$name/$age") }){
             Text(text = "Valider")
         }
         Button(onClick = { navController.popBackStack() }){
