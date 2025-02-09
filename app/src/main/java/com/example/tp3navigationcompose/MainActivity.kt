@@ -80,6 +80,7 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 fun FormScreen(navController: NavController) {
+    var name by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Center,
@@ -87,6 +88,12 @@ fun FormScreen(navController: NavController) {
     ){
         Text(text = "Page du formulaire",
             style = MaterialTheme.typography.titleMedium)
+        TextField(
+            value = name,
+            onValueChange = { newText -> name = newText },
+            label = { Text("Entrez votre nom") },
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = { navController.popBackStack() }){
             Text(text = "Retour")
