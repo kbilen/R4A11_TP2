@@ -71,7 +71,7 @@ fun HomeScreen(navController: NavController) {
     ){
         Text(text = "Bienvenue dans ma première application compose navigation",
             style = MaterialTheme.typography.titleMedium)
-        Spacer(modifier = Modifier.height(24.dp))//permet un espace entre les composants
+        Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = { navController.navigate("form") }){
             Text(text = "Accéder au formulaire")
         }
