@@ -30,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tp3navigationcompose.ui.theme.TP3NavigationComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,6 +59,29 @@ fun AppNavigation(){
         }
         composable("form"){
             FormScreen(navController = navController)
+        }
+        composable(
+            route="display/{name}",
+            arguments = listOf(navArgument("name") {defaultValue =""})
+        ){  backStackEntry ->
+            val name= backStackEntry.arguments?.getString("name") ?:""
+            DisplayScreen(navController = navController,name)
+        }
+    }
+}
+
+@Composable
+fun DisplayScreen(navController: NavController,name: String) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(text = "Affichage du formulaire",
+            style = MaterialTheme.typography.titleMedium)
+
+        Button(onClick = { navController.popBackStack() }){
+            Text(text = "Retour")
         }
     }
 }
@@ -95,6 +119,9 @@ fun FormScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth().padding(16.dp)
         )
         Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = { navController.navigate("display/$name") }){
+            Text(text = "Valider")
+        }
         Button(onClick = { navController.popBackStack() }){
             Text(text = "Retour")
         }
